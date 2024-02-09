@@ -1,3 +1,5 @@
+package dsa;
+
 public class ArrayList {
     private boolean isEmpty = true;
     private int numberOfElements;
@@ -59,5 +61,16 @@ public class ArrayList {
 
     public int size() {
         return numberOfElements;
+    }
+
+    public void insert(int index, String element) {
+
+        if (elements[index] != null) {
+            String temp = elements[index];
+            elements[index] = element;
+            elements[index + 1] = temp;
+        }
+
+        elements[index] = element;
     }
 }

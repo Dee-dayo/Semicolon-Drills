@@ -1,3 +1,6 @@
+package dsaTest;
+
+import dsa.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -216,4 +219,39 @@ public class ArrayListTest {
         myStringArray.remove("Beejay");
         assertEquals(2, myStringArray.size());
     }
+
+    @Test
+    public void listIsEmpty_canInsertElementInFirstIndex(){
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.insert(0, "Moh");
+        assertEquals("Moh", myStringArray.get(0));
+    }
+
+    @Test
+    public void hasOneElement_canInsertInIndexZero(){
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        assertEquals(0, myStringArray.get("moh"));
+
+        myStringArray.insert(0, "Beejay");
+        assertEquals(0, myStringArray.get("Beejay"));
+
+        assertEquals(1, myStringArray.get("Moh"));
+    }
+
+    @Test
+    public void hasTwoElement_canInsertinIndexZero() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        assertEquals("Moh", myStringArray.get(0));
+        assertEquals("Beejay", myStringArray.get(1));
+
+        myStringArray.insert(0, "Jumoke");
+
+        assertEquals(0, myStringArray.get("Jumoke"));
+        assertEquals(1, myStringArray.get("Moh"));
+        assertEquals(2, myStringArray.get("Beejay"));
+    }
+
 }
