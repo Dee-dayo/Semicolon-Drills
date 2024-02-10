@@ -53,7 +53,7 @@ public class ArrayListTest {
         myStringArray.add("Bolaji");
         myStringArray.add("Moh");
 
-        myStringArray.remove("Bolai");
+        myStringArray.remove("Bolaji");
         assertFalse(myStringArray.isEmpty());
     }
 
