@@ -118,13 +118,19 @@ public class MySetTest {
         mySet.add("Beejay");
         mySet.add("Beejay");
         assertEquals(1, mySet.size());
+
+        mySet.add("Moh");
+        mySet.add("Moh");
+        mySet.add("MOH");
+        assertEquals(3, mySet.size());
     }
 
-//    @Test
-//    public void cannotRemoveElementIfNotFoundInSet() {
-//        assertTrue(mySet.isEmpty());
-//        mySet.add("Beejay");
-//        mySet.add("Moh");
-//        assertThrows(IllegalArgumentException.class, ()-> mySet.remove("Jumoke"));
-//    }
+    @Test
+    public void cannotRemoveElementIfNotFoundInSet() {
+        assertTrue(mySet.isEmpty());
+        mySet.add("Beejay");
+        mySet.add("Moh");
+        mySet.remove("Jumoke");
+        assertEquals(2, mySet.size());
+    }
 }

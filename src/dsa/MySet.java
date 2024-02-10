@@ -2,7 +2,7 @@ package dsa;
 
 public class MySet {
     private boolean isEmpty = true;
-    private int noOfElements;
+    public int noOfElements;
     private String[] elements;
 
     public MySet() {
@@ -14,6 +14,14 @@ public class MySet {
     }
 
     public void add(String element) {
+        for (int index = 0; index < noOfElements; index++) {
+            if (elements[index].equals(element)) return;
+        }
+
+        elements[noOfElements] = element;
+        isEmpty = false;
+        noOfElements++;
+
         if (elements.length == noOfElements) {
             String[] temp = new String[noOfElements + 1];
             int tempCounter = 0;
@@ -25,9 +33,6 @@ public class MySet {
             temp[tempCounter] = element;
             elements = temp;
         }
-        elements[noOfElements] = element;
-        isEmpty = false;
-        noOfElements++;
     }
 
     public int size() {
@@ -35,11 +40,18 @@ public class MySet {
     }
 
     public void remove(String element) {
-        if (!isEmpty) {
-            noOfElements--;
-        } else {
-            throw new ArrayIndexOutOfBoundsException("Set is empty");
+        if (noOfElements == 0) throw new ArrayIndexOutOfBoundsException("Out of Bound");
+
+        String[] temp = new String[elements.length];
+        int tempCounter = 0;
+
+        for (int index = 0; index < noOfElements; index++) {
+            if (elements[index].equals(element)) continue;
+            temp[tempCounter] = elements[index];
+            tempCounter++;
         }
+        elements = temp;
+        noOfElements--;
     }
 
     public boolean contain(String element) {
