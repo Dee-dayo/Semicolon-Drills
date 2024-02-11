@@ -63,7 +63,7 @@ public class ArrayList {
         return numberOfElements;
     }
 
-    public void insert(int index, String element) {
+    public void add(int index, String element) {
 
         if (index < 0 || index > numberOfElements) throw new ArrayIndexOutOfBoundsException("Out of bound");
 
@@ -91,5 +91,36 @@ public class ArrayList {
             }
         }
         return false;
+    }
+
+    public int indexOf(String element) {
+        for (int index = 0; index < numberOfElements; index++) {
+            if (elements[index].equalsIgnoreCase(element)) return index;
+        }
+        return -1;
+    }
+
+    public int lastIndexOf(String element) {
+        for (int index = numberOfElements - 1; index >= 0; index--) {
+            if (elements[index].equalsIgnoreCase(element)) return index;
+        }
+        return -1;
+    }
+
+    public String[] toArray() {
+        String [] newArray = new String[numberOfElements];
+        for (int index = 0; index < numberOfElements; index++) {
+            newArray[index] = elements[index];
+        }
+        return newArray;
+    }
+
+    public void set(int position, String element) {
+        elements[position] = element;
+    }
+
+    public void clear() {
+        numberOfElements = 0;
+        this.elements = new String[3];
     }
 }

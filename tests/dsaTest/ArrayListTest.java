@@ -223,7 +223,7 @@ public class ArrayListTest {
     @Test
     public void listIsEmpty_canInsertElementInFirstIndex(){
         assertTrue(myStringArray.isEmpty());
-        myStringArray.insert(0, "Moh");
+        myStringArray.add(0, "Moh");
         assertEquals("Moh", myStringArray.get(0));
     }
 
@@ -233,7 +233,7 @@ public class ArrayListTest {
         myStringArray.add("Moh");
         assertEquals(0, myStringArray.get("moh"));
 
-        myStringArray.insert(0, "Beejay");
+        myStringArray.add(0, "Beejay");
         assertEquals(0, myStringArray.get("Beejay"));
 
         assertEquals(1, myStringArray.get("Moh"));
@@ -247,7 +247,7 @@ public class ArrayListTest {
         assertEquals("Moh", myStringArray.get(0));
         assertEquals("Beejay", myStringArray.get(1));
 
-        myStringArray.insert(0, "Jumoke");
+        myStringArray.add(0, "Jumoke");
 
         assertEquals(0, myStringArray.get("Jumoke"));
         assertEquals(1, myStringArray.get("Moh"));
@@ -259,7 +259,7 @@ public class ArrayListTest {
         assertTrue(myStringArray.isEmpty());
         myStringArray.add("Moh");
         myStringArray.add("Beejay");
-        assertThrows(ArrayIndexOutOfBoundsException.class, ()-> myStringArray.insert(3, "Jumoke"));
+        assertThrows(ArrayIndexOutOfBoundsException.class, ()-> myStringArray.add(3, "Jumoke"));
     }
 
     @Test
@@ -288,4 +288,75 @@ public class ArrayListTest {
         assertFalse(myStringArray.contain("Jumoke"));
     }
 
+    @Test
+    public void canGetIndexOfAnElementInTheFirstOccuringPlace() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        myStringArray.add("Blessing");
+        myStringArray.add("Moh");
+        myStringArray.add("Jumoke");
+        assertEquals(0, myStringArray.indexOf("Moh"));
+    }
+
+    @Test
+    public void returns_1WhenCantGetIndexOfAnElement() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        myStringArray.add("Blessing");
+        myStringArray.add("Moh");
+        myStringArray.add("Jumoke");
+        assertEquals(-1, myStringArray.indexOf("Izu"));
+    }
+
+    @Test
+    public void canGetLastIndexOfAnElement() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        myStringArray.add("Blessing");
+        myStringArray.add("Moh");
+        myStringArray.add("Jumoke");
+        assertEquals(3, myStringArray.lastIndexOf("Moh"));
+    }
+
+    @Test
+    public void canReturnAListToArray() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        myStringArray.add("Blessing");
+        myStringArray.add("Moh");
+        myStringArray.add("Jumoke");
+        String[] expected = {"Moh", "Beejay", "Blessing", "Moh", "Jumoke"};
+        assertArrayEquals(expected, myStringArray.toArray());
+    }
+
+    @Test
+    public void setAnElementIntoAnIndex_replacePreviousElement() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        myStringArray.add("Blessing");
+        myStringArray.add("Moh");
+        assertEquals(2, myStringArray.get("Blessing"));
+
+        myStringArray.set(2, "Orisha");
+        assertEquals(2, myStringArray.get("Orisha"));
+        assertEquals("Orisha", myStringArray.get(2));
+    }
+
+    @Test
+    public void canClearAnAlreadyExistingList() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        myStringArray.add("Blessing");
+        myStringArray.add("Moh");
+        assertFalse(myStringArray.isEmpty());
+
+        myStringArray.clear();
+        assertTrue(myStringArray.isEmpty());
+    }
 }
