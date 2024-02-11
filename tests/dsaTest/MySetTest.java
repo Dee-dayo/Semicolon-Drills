@@ -153,4 +153,22 @@ public class MySetTest {
         mySet.add("Orisha");
         assertFalse(mySet.containsAll("Bolaji", "Jumoke"));
     }
+
+    @Test
+    public void canAddMultipleElementsAtOnce() {
+        assertTrue(mySet.isEmpty());
+        mySet.add("Beejay");
+        mySet.add("Moh");
+        mySet.addAll("Jumoke", "Izu");
+        assertEquals(4, mySet.size());
+    }
+
+    @Test
+    public void cantAddElementWithAddAllIfAlreadyInSet() {
+        mySet.add("Beejay");
+        mySet.add("Moh");
+        mySet.addAll("Jumoke", "Beejay","Izu", "Victor", "Moh");
+        assertEquals(5, mySet.size());
+    }
+
 }

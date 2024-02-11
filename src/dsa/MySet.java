@@ -2,7 +2,7 @@ package dsa;
 
 public class MySet {
     private boolean isEmpty = true;
-    public int noOfElements;
+    private int noOfElements;
     private String[] elements;
 
     public MySet() {
@@ -68,12 +68,21 @@ public class MySet {
         return false;
     }
 
-    public boolean containsAll(String... elements) {
-        for (int index = 0; index < elements.length; index++) {
-            if (!contain(elements[index])) {
+    public boolean containsAll(String... checkElement) {
+        for (int index = 0; index < checkElement.length; index++) {
+            if (!contain(checkElement[index])) {
                 return false;
             }
         }
         return true;
+    }
+
+    public void addAll(String... addElements) {
+        for (int index = 0; index < addElements.length; index++) {
+            if (!contain(addElements[index])) {
+                elements[noOfElements] = addElements[index];
+                noOfElements++;
+            }
+        }
     }
 }
