@@ -133,4 +133,24 @@ public class MySetTest {
         mySet.remove("Jumoke");
         assertEquals(2, mySet.size());
     }
+
+    @Test
+    public void canCheckMethodToSeeItContainsACollectionOfElements() {
+        assertTrue(mySet.isEmpty());
+        mySet.add("Beejay");
+        mySet.add("Moh");
+        mySet.add("Jumoke");
+        mySet.add("Orisha");
+        assertTrue(mySet.containsAll("Beejay", "Jumoke"));
+    }
+
+    @Test
+    public void checkIfListOfElementsInSet_returnFalseIfNot() {
+        assertTrue(mySet.isEmpty());
+        mySet.add("Beejay");
+        mySet.add("Moh");
+        mySet.add("Jumoke");
+        mySet.add("Orisha");
+        assertFalse(mySet.containsAll("Bolaji", "Jumoke"));
+    }
 }

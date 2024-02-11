@@ -67,4 +67,13 @@ public class MySet {
         }
         return false;
     }
+
+    public boolean containsAll(String... elements) {
+        for (int index = 0; index < elements.length; index++) {
+            if (!contain(elements[index])) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
