@@ -40,19 +40,24 @@ public class MySet {
     }
 
     public void remove(String element) {
-        if (noOfElements == 0) throw new ArrayIndexOutOfBoundsException("Out of Bound");
-
-        String[] temp = new String[elements.length];
-        int tempCounter = 0;
+        if (isEmpty) throw new ArrayIndexOutOfBoundsException("Nothing is in the set");
+        boolean found = false;
 
         for (int index = 0; index < noOfElements; index++) {
-            if (elements[index].equals(element)) continue;
-            temp[tempCounter] = elements[index];
-            tempCounter++;
+            if (elements[index].equals(element)) {
+                found = true;
+                for (int count = index; count < noOfElements - 1; count++) {
+                    elements[count] = elements[count + 1];
+                }
+                break;
+            }
         }
-        elements = temp;
-        noOfElements--;
+
+        if (found) {
+            noOfElements--;
+        }
     }
+
 
     public boolean contain(String element) {
         for (int index = 0; index < noOfElements; index++) {
