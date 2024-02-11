@@ -254,4 +254,38 @@ public class ArrayListTest {
         assertEquals(2, myStringArray.get("Beejay"));
     }
 
+    @Test
+    public void cantInsertElementsToListThatsMoreThanTheExistingSize() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        assertThrows(ArrayIndexOutOfBoundsException.class, ()-> myStringArray.insert(3, "Jumoke"));
+    }
+
+    @Test
+    public void checkElementContainInAList() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        assertTrue(myStringArray.contain("Beejay"));
+    }
+
+    @Test
+    public void checkElementContainInAListIgnoreCase() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        myStringArray.add("Blessing");
+        assertTrue(myStringArray.contain("bleSSING"));
+    }
+
+    @Test
+    public void checkElementInAList_returnFalse() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Moh");
+        myStringArray.add("Beejay");
+        myStringArray.add("Blessing");
+        assertFalse(myStringArray.contain("Jumoke"));
+    }
+
 }

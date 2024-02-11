@@ -171,4 +171,14 @@ public class MySetTest {
         assertEquals(5, mySet.size());
     }
 
+    @Test
+    public void canAddMultipleElements_stillAddOneAfter() {
+        assertTrue(mySet.isEmpty());
+        mySet.addAll("Beejay", "Moh", "Timi", "Orisha", "jumoke", "izu", "miriam");
+        assertEquals(7, mySet.size());
+
+        mySet.add("Dayo");
+        assertEquals(8, mySet.size());
+    }
+
 }

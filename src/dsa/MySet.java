@@ -26,8 +26,8 @@ public class MySet {
             String[] temp = new String[noOfElements + 1];
             int tempCounter = 0;
 
-            for (int i = 0; i < elements.length; i++){
-                temp[tempCounter] = elements[i];
+            for (int index = 0; index < elements.length; index++){
+                temp[tempCounter] = elements[index];
                 tempCounter++;
             }
             temp[tempCounter] = element;
@@ -80,8 +80,7 @@ public class MySet {
     public void addAll(String... addElements) {
         for (int index = 0; index < addElements.length; index++) {
             if (!contain(addElements[index])) {
-                elements[noOfElements] = addElements[index];
-                noOfElements++;
+                add(addElements[index]);
             }
         }
     }

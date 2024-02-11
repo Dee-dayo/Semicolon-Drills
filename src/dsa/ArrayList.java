@@ -12,7 +12,7 @@ public class ArrayList {
 
     public void add(String element) {
         if (numberOfElements == elements.length) {
-            String[] temp = new String[elements.length * 2];
+            String[] temp = new String[elements.length + 1];
             int tempCounter = 0;
 
             for (int i = 0; i < elements.length; i++){
@@ -65,12 +65,31 @@ public class ArrayList {
 
     public void insert(int index, String element) {
 
-        if (elements[index] != null) {
-            String temp = elements[index];
-            elements[index] = element;
-            elements[index + 1] = temp;
+        if (index < 0 || index > numberOfElements) throw new ArrayIndexOutOfBoundsException("Out of bound");
+
+        if (numberOfElements == elements.length) {
+            String[] temp = new String[elements.length + 1];
+
+            for (int count = 0; count < elements.length; count++) {
+                temp[count] = elements[count];
+            }
+            elements = temp;
+        }
+
+        for (int i = numberOfElements; i > index; i--) {
+            elements[i] = elements[i - 1];
         }
 
         elements[index] = element;
+        numberOfElements++;
+    }
+
+    public boolean contain(String element) {
+        for (int index = 0; index < numberOfElements; index++) {
+            if (elements[index].equalsIgnoreCase(element)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
