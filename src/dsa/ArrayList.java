@@ -123,4 +123,16 @@ public class ArrayList {
         numberOfElements = 0;
         this.elements = new String[3];
     }
+
+    public void addAll(String... addElements) {
+        for (int index = 0; index < addElements.length; index++) {
+            add(addElements[index]);
+        }
+    }
+
+    public void removeRange(int fromIndex, int toIndex) {
+        for(int index = fromIndex; index <= toIndex; index++){
+            remove(elements[index]);
+        }
+    }
 }

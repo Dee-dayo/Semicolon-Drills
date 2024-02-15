@@ -359,4 +359,38 @@ public class ArrayListTest {
         myStringArray.clear();
         assertTrue(myStringArray.isEmpty());
     }
+
+    @Test
+    public void canAddACollectionToAList() {
+        assertTrue(myStringArray.isEmpty());
+        assertEquals(0, myStringArray.size());
+
+        myStringArray.addAll("Moh", "Beejay", "Blessing");
+    }
+
+    @Test
+    public void elementsAlreadyInList_canAddMultiple() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.add("Aramide");
+        myStringArray.add("Praise");
+        myStringArray.add("Bimbim");
+        myStringArray.add("Chichi");
+        myStringArray.add("Aramide");
+        assertEquals(5, myStringArray.size());
+
+        myStringArray.addAll("Moh", "Beejay", "Chichi", "Jumoke");
+        assertEquals(9, myStringArray.size());
+    }
+
+    @Test
+    public void addElementsToList_removeFromARange() {
+        assertTrue(myStringArray.isEmpty());
+        myStringArray.addAll("Moh", "Beejay", "Chichi", "Jumoke", "Aramide", "Praise", "Bimbim");
+        assertEquals(7, myStringArray.size());
+
+        myStringArray.removeRange(2, 5);
+        assertEquals(3, myStringArray.size());
+        assertEquals("Bimbim", myStringArray.get(2));
+
+    }
 }
