@@ -27,7 +27,7 @@ public class Person {
         }
     }
 
-    public ArrayList<Problem> recountProblemsTwo() {
+    public ArrayList<Problem> recountProblemsTwo () {
         return listOfProblems;
     }
 
