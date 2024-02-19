@@ -59,7 +59,21 @@ public class Bank {
         }
     }
 
-    public int checkBalance(int accNo, String pinNo) {
-        Account account = f
+    public int checkBalance(int accNo, String pinNo) throws InvalidPinException {
+        for (int index = 0; index < accounts.size(); index++) {
+            Account account = accounts.get(index);
+            if (account.getAccountNumber() == accNo && account.checkPinValidity(pinNo)) return account.checkBalance();
+        }
+        return 0;
+    }
+
+    public void removeAccount(int accNo, String pinNo) throws InvalidPinException {
+        Account account = findAccount(accNo);
+
+        if (account != null && account.checkPinValidity(pinNo)) accounts.remove(account);
+    }
+
+    public int numberOfAccounts() {
+        return accounts.size();
     }
 }

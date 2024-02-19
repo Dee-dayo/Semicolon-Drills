@@ -93,8 +93,34 @@ public class BankTest {
     }
 
     @Test
-    public void BankCanCheckBalance() throws InvalidAmountException {
+    public void BankCanCheckBalance() throws InvalidAmountException, InvalidPinException {
         bank.deposit(2090171769, 18_000);
         assertEquals(18_000, bank.checkBalance(2090171769, "1234"));
+    }
+
+    @Test
+    public void balanceCantCheckBalanceIfPinIsWrong() throws InvalidAmountException, InvalidPinException {
+        bank.deposit(2090171769, 18_000);
+        assertThrows(InvalidPinException.class, ()->bank.checkBalance(2090171769, "123544"));
+    }
+
+    @Test
+    public void BankCanRemoveAccount() throws InvalidPinException {
+        bank.removeAccount(2090171769, "1234");
+        assertEquals(0, bank.numberOfAccounts());
+    }
+
+    @Test
+    public void BankCanRemoveAccountAfterAdding() throws InvalidPinException {
+        Account account2 = bank.registerCustomer("Moh Baba", "2090676790", "1827");
+        assertEquals(2, bank.numberOfAccounts());
+
+        bank.removeAccount(2090676790, "1827");
+        assertEquals(1, bank.numberOfAccounts());
+    }
+
+    @Test
+    public void BankCantRemoveAccountIfPinIsWrong() {
+        assertThrows(InvalidPinException.class, ()->bank.removeAccount(2090171769, "123864"));
     }
 }

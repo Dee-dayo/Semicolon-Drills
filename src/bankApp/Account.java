@@ -50,4 +50,9 @@ public class Account {
     public int checkBalance(){
         return accountBalance;
     }
+
+    public boolean checkPinValidity(String accountPin) throws InvalidPinException {
+        if (this.accountPin.equals(accountPin) && accountPin.length() == 4) return true;
+        else throw new InvalidPinException();
+    }
 }
