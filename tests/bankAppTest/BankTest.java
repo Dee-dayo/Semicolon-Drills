@@ -18,14 +18,14 @@ public class BankTest {
 
 
 //    @Test
-//    public void BankCanRegisterCustomer(){
+//    public void BankCanRegisterCustomer() throws InvalidPinException {
 //        Account accountTwo = bank.registerCustomer("Dayo Akinyemi", "2090171769", "1234");
 //        Account new_acc = new Account("Dayo Akinyemi", "1234", 2090171769);
 //        assertEquals(new_acc, accountTwo);
 //    }
 
     @Test
-    public void BankCanFindAccount() throws InvalidPinException {
+    public void BankCanFindAccount() {
         assertEquals(account, bank.findAccount(2090171769));
     }
 
@@ -38,6 +38,7 @@ public class BankTest {
     public void BankCanDepositIntoAccount() throws InvalidAmountException, InvalidPinException {
         bank.deposit(2090171769, 5_000);
         assertEquals(5_000, account.checkBalance());
+        assertEquals(5_000, bank.checkBalance(2090171769, "1234"));
     }
 
     @Test

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Bank {
     private String name;
-    private List<Account> accounts;
+    private final List<Account> accounts;
 
     public Bank(String name) {
         this.name = name;
@@ -19,8 +19,7 @@ public class Bank {
     }
 
     public Account findAccount(int accNo) {
-        for (int index = 0; index < accounts.size(); index++) {
-            Account account = accounts.get(index);
+        for (Account account : accounts) {
             if (account.getAccountNumber() == accNo) return account;
         }
          throw new IllegalArgumentException("Account not Found");
@@ -51,7 +50,7 @@ public class Bank {
 
         int senderBalance = senderAccount.checkBalance(pinNo);
 
-        if (senderAccount != null && senderBalance >0) {
+        if (senderBalance >0) {
             senderAccount.withdraw(amount);
 
             if (receiverAccount != null) receiverAccount.deposit(amount);
@@ -60,8 +59,7 @@ public class Bank {
     }
 
     public int checkBalance(int accNo, String pinNo) throws InvalidPinException {
-        for (int index = 0; index < accounts.size(); index++) {
-            Account account = accounts.get(index);
+        for (Account account : accounts) {
             if (account.getAccountNumber() == accNo && account.checkPinValidity(pinNo)) return account.checkBalance();
         }
         return 0;

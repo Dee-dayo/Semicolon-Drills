@@ -1,12 +1,11 @@
 package bankApp;
 
-import java.util.InvalidPropertiesFormatException;
 
 public class Account {
-    private String accountName;
+    private final String accountName;
     private int accountBalance;
-    private String accountPin;
-    private int accountNumber;
+    private final String accountPin;
+    private final int accountNumber;
 
     public Account(String accountName, String accountPin, int accountNumber) throws InvalidPinException {
         this.accountName = accountName;
