@@ -1,5 +1,6 @@
 package bankApp;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class BankApp {
@@ -123,13 +124,16 @@ public class BankApp {
     }
 
     private static void print(String display) {
-        System.out.print(display);
+//        System.out.print(display);
+        JOptionPane.showMessageDialog(null, display);
     }
 
     private static String input(String prompt){
-        print(prompt);
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+//        print(prompt);
+//        Scanner scanner = new Scanner(System.in);
+//        return scanner.nextLine();
+        String userInput = JOptionPane.showInputDialog(null, prompt);
+        return userInput;
     }
 
 }
