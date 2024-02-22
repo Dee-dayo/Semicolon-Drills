@@ -30,8 +30,8 @@ public class BankApp {
         switch(userInput.charAt(0)) {
             case '1' -> registerAccount();
             case '2' -> deposit();
-//            case '3' -> withdraw();
-//            case '4' -> transfer();
+            case '3' -> withdraw();
+            case '4' -> transfer();
 //            case '5' -> checkBalance();
 //            case '6' -> removeAcc();
             case '7' -> exit();
@@ -39,9 +39,55 @@ public class BankApp {
         }
     }
 
+    private static void transfer() {
+        print("\nTRANSFER MONEY\n");
+        String from = input("Enter sender account number: ");
+        String to = input("Enter receiver number: ");
+        String amount = input("Enter amount to transfer: ");
+        String pin = input("Enter your pin: ");
+        try {
+            ubaBank.transfer(Integer.parseInt(from), Integer.parseInt(to), Integer.parseInt(amount),pin);
+            print("***Amount transferred successfully***\n");
+        } catch (Exception message){
+            print(message.getMessage());
+        }
+        finally {
+            print("\n");
+            goToDisplayPage();
+        }
+    }
+
+    private static void withdraw() {
+        print("\nWITHDRAW MONEY\n");
+        String accNo = input("Enter Account number: ");
+        String amount = input("Enter amount to withdraw: ");
+        String pin = input("Enter pin: ");
+        try {
+            ubaBank.withdraw(Integer.parseInt(accNo), Integer.parseInt(amount), pin);
+            print("***Amount withdrawn Successfully***\n");
+        } catch (Exception message){
+            print(message.getMessage());
+        }
+        finally {
+            print("\n");
+            goToDisplayPage();
+        }
+    }
+
     private static void deposit() {
         print("\nDEPOSIT MONEY\n");
         String accNo = input("Enter Account number: ");
+        String amount = input("Enter deposit amount: ");
+        try{
+            ubaBank.deposit(Integer.parseInt(accNo), Integer.parseInt(amount));
+            print("***Amount deposited Successfully***\n");
+        } catch (Exception message){
+            print(message.getMessage());
+        }
+        finally {
+            print("\n");
+            goToDisplayPage();
+        }
 
     }
 

@@ -47,7 +47,7 @@ public class Bank {
     }
 
     private void validate(Account account) {
-        if (account == null) throw new NoAccountFound("Account not registered");
+        if (account == null) throw new NoAccountFound("Account not correct");
     }
 
     public int checkBalance(int accNo, String pin) {
