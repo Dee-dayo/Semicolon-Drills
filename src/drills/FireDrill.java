@@ -1,5 +1,8 @@
 package drills;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 public class FireDrill {
     public static int[] returnOneAndZeroList(int[] inputArray) {
         int[] outputArray = new int[inputArray.length];
@@ -38,4 +41,13 @@ public class FireDrill {
     public static int[] anotherMethod() {
         return new int [10];
     }
+
+    public static int yearCalculator(String dateOfBirth) {
+        LocalDate currentDate = LocalDate.now() ;
+       String [] split = dateOfBirth.split("/");
+        LocalDate inputDate = LocalDate.of(Integer.parseInt(split[2]), Integer.parseInt(split[1]), Integer.parseInt(split[0]));
+        Period period = Period.between(inputDate, currentDate);
+        return period.getYears();
+    }
+
 }

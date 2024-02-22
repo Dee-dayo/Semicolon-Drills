@@ -1,57 +1,64 @@
 package bankApp;
 
-
 public class Account {
-    private final String accountName;
-    private int accountBalance;
-    private final String accountPin;
-    private final int accountNumber;
+    private String name;
+    private int balance;
+    private String pin;
+    private int accNumber;
 
-    public Account(String accountName, String accountPin, int accountNumber) throws InvalidPinException {
-        this.accountName = accountName;
-        if (accountPin.length() == 4) {
-            this.accountPin = accountPin;
-        } else throw new InvalidPinException();
-        this.accountNumber = accountNumber;
-        accountBalance = 0;
+    public Account(String fullName, int accNumber, String pin) {
+        this.name = fullName;
+        this.accNumber = accNumber;
+        this.pin = pin;
     }
 
-    public Account(String accountName, String accountNumber, String accountPin) throws InvalidPinException {
-        this.accountName = accountName;
-        this.accountNumber = Integer.parseInt(accountNumber);
-        if (accountPin.length() == 4) {
-            this.accountPin = accountPin;
-        } else throw new InvalidPinException();
-        accountBalance = 0;
+    public void deposit(int amount) {
+        validate(amount);
+        balance += amount;
     }
 
-    public void deposit(int amount) throws InvalidAmountException {
-        if (amount < 0) throw new InvalidAmountException();
-        else accountBalance += amount;
+    private static void validate(int amount) {
+        if (amount <= 0) throw new InvalidAmountException("Amount less than zero can't be deposited");
     }
 
-    public int checkBalance(String accountPin) throws InvalidPinException {
-        if (this.accountPin.equals(accountPin)) return accountBalance;
-        else throw new InvalidPinException();
+    public int checkBalance(String pinNo) {
+        validate(pinNo);
+        return balance;
     }
 
-    public void withdraw(int amount) throws InsufficientFundsException {
-        if (amount > 0) {
-            if (amount < accountBalance) accountBalance -= amount;
-            else throw new InsufficientFundsException();
-        }
+    private void validate(String pinNo) {
+        if (!pin.equals(pinNo)) throw new InvalidPinException("Incorrect pin");
     }
 
-    public int getAccountNumber(){
-        return accountNumber;
+    public void withdraw(int amount, String pinNo) {
+        validate(amount, pinNo);
+        balance -= amount;
     }
 
-    public int checkBalance(){
-        return accountBalance;
+    private void validate(int amount, String pinNo) {
+        validate(amount);
+        validate(pinNo);
+        validateAmount(amount);
     }
 
-    public boolean checkPinValidity(String accountPin) throws InvalidPinException {
-        if (this.accountPin.equals(accountPin) && accountPin.length() == 4) return true;
-        else throw new InvalidPinException();
+    private void validateAmount(int amount) {
+        if ( amount > balance) throw new InsufficientFundsException("Amount Exceeded Balance");
     }
+
+    public int getAccountNumber() {
+        return accNumber;
+    }
+
+    public boolean verifyPin(String pin) {
+        return this.pin.equals(pin);
+    }
+
+    public int getBalance(){
+        return balance;
+    }
+
+    public String getName(){
+        return name;
+    }
+
 }

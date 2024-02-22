@@ -3,6 +3,7 @@ package drillsTest;
 import drills.FireDrill;
 import org.junit.jupiter.api.Test;
 
+import static drills.FireDrill.yearCalculator;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -39,4 +40,10 @@ public class FireDrillTest {
         boolean[] expected = {false, true, false, false, false, false, true};
         assertArrayEquals(expected, FireDrill.secondAttemptReturnTrueAndFalse(actual));
     }
+
+    @Test
+    public void testYearCalculator() {
+        assertEquals(1, yearCalculator("12/12/2022"));
+    }
+
 }

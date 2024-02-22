@@ -4,124 +4,82 @@ import bankApp.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BankTest {
+
     private Bank bank;
     private Account account;
 
     @BeforeEach
-    public void initializeBank() throws InvalidPinException {
-        bank = new Bank("Uba");
-        account = bank.registerCustomer("Dayo Akinyemi", "2090171769", "1234");
+    public void setUp() {
+        bank = new Bank("UBA");
+        account = bank.registerCustomer("Dayo", "Timi", "1234");
     }
 
 
-//    @Test
-//    public void BankCanRegisterCustomer() throws InvalidPinException {
-//        Account accountTwo = bank.registerCustomer("Dayo Akinyemi", "2090171769", "1234");
-//        Account new_acc = new Account("Dayo Akinyemi", "1234", 2090171769);
-//        assertEquals(new_acc, accountTwo);
-//    }
-
     @Test
-    public void BankCanFindAccount() {
-        assertEquals(account, bank.findAccount(2090171769));
+    public void BankCanRegisterCustomer() {
+        assertEquals(account, bank.findAccount(1_000_000_000));
+        assertEquals(1, bank.checkNoOfCustomers());
     }
 
     @Test
-    public void BankThrowsIllegalArguementIfAccountNotInList() {
-        assertThrows(IllegalArgumentException.class, ()->bank.findAccount(2090171763));
+    public void BankCanDepositMoneyIntoAccount() {
+        int accNo = account.getAccountNumber();
+        bank.deposit(accNo, 5_000);
+        assertEquals(5_000, bank.checkBalance(accNo, "1234"));
     }
 
     @Test
-    public void BankCanDepositIntoAccount() throws InvalidAmountException, InvalidPinException {
-        bank.deposit(2090171769, 5_000);
-        assertEquals(5_000, account.checkBalance());
-        assertEquals(5_000, bank.checkBalance(2090171769, "1234"));
+    public void DepositThrowsExceptionWhenDepositNegativeNumber(){
+        int accNo = account.getAccountNumber();
+        assertThrows(InvalidAmountException.class, ()->bank.deposit(accNo, -5_000));
     }
 
     @Test
-    public void BankThrowsIllegalArguementIfAccountNotInListToDeposit() {
-        assertThrows(IllegalArgumentException.class, ()->bank.deposit(2090171459, 5_000));
+    public void BankCanWithdrawMoneyFromAccount(){
+        int accNo = account.getAccountNumber();
+        bank.deposit(accNo, 5_000);
+        bank.withdraw(accNo, 2_000, "1234");
+        assertEquals(3_000, bank.checkBalance(accNo, "1234"));
     }
 
     @Test
-    public void BankCanWithdrawMoneyFromAccount() throws InvalidPinException, InvalidAmountException, InsufficientFundsException {
-        bank.deposit(2090171769, 5_000);
-        bank.withdraw(2090171769, 2_000, "1234");
-        assertEquals(3_000, account.checkBalance());
+    public void BankCantWithdrawIfAmountIsGreaterThanBalance(){
+        int accNo = account.getAccountNumber();
+        bank.deposit(accNo, 5_000);
+        assertThrows(InsufficientFundsException.class, ()->bank.withdraw(accNo, 10_000, "1234"));
     }
 
     @Test
-    public void BankCantWithdrawMoneyIfPinIsWrong() throws InvalidPinException, InvalidAmountException, InsufficientFundsException {
-        bank.deposit(2090171769, 5_000);
-        assertThrows(InvalidPinException.class, ()->bank.withdraw(2090171769, 2_000, "129334"));
+    public void BankCanTransferFromOneAccountToAnother(){
+        int senderAccNo = account.getAccountNumber();
+        bank.deposit(senderAccNo, 5_000);
+        assertEquals(5_000, bank.checkBalance(senderAccNo, "1234"));
+
+        Account account2 = bank.registerCustomer("Moh", "Baba", "2222");
+        int receiverAccNo = account2.getAccountNumber();
+        assertEquals(0, bank.checkBalance(receiverAccNo, "2222"));
+
+        bank.transfer(senderAccNo, receiverAccNo, 3_000, "1234");
+
+        assertEquals(2_000, bank.checkBalance(senderAccNo, "1234"));
+        assertEquals(3_000, bank.checkBalance(receiverAccNo, "2222"));
     }
 
     @Test
-    public void BankCantWithdrawIfWithdrawAmountGreaterThanBalance() throws InvalidPinException, InvalidAmountException {
-        bank.deposit(2090171769, 5_000);
-        assertThrows(InsufficientFundsException.class, ()->bank.withdraw(2090171769, 10_000, "1234"));
-    }
+    public void BankCanRemoveAccount() {
+        Account account2 = bank.registerCustomer("Moh", "Baba", "2222");
+        assertEquals(2, bank.checkNoOfCustomers());
+        int accNo = account2.getAccountNumber();
 
-    @Test
-    public void BankCantWithdrawIfAccountDoesntExist() {
-        assertThrows(IllegalArgumentException.class, ()->bank.withdraw(2090172329, 10_000, "1234"));
-    }
+        bank.removeAccount(accNo, "2222");
+        assertEquals(1, bank.checkNoOfCustomers());
 
-    @Test
-    public void BankCanTransferToAnotherAccount() throws InvalidPinException, InsufficientFundsException, InvalidAmountException {
-        Account account2 = bank.registerCustomer("Moh Baba", "2090676790", "1827");
-        assertEquals(0, account2.checkBalance());
-
-        bank.deposit(2090171769, 18_000);
-        assertEquals(18_000, account.checkBalance());
-
-        bank.transfer(2090171769, 2090676790, 5_000, "1234");
-        assertEquals(13_000, account.checkBalance());
-
-        assertEquals(5_000, account2.checkBalance());
-    }
-
-    @Test
-    public void BankCantTransferToAnotherAccountThatDoesNotExist() throws InvalidAmountException {
-        bank.deposit(2090171769, 18_000);
-        assertEquals(18_000, account.checkBalance());
-
-        assertThrows(IllegalArgumentException.class, ()-> bank.transfer(2090171769, 2090676790, 5_000, "1234"));
-        assertEquals(18_000, account.checkBalance());
-    }
-
-    @Test
-    public void BankCanCheckBalance() throws InvalidAmountException, InvalidPinException {
-        bank.deposit(2090171769, 18_000);
-        assertEquals(18_000, bank.checkBalance(2090171769, "1234"));
-    }
-
-    @Test
-    public void balanceCantCheckBalanceIfPinIsWrong() throws InvalidAmountException, InvalidPinException {
-        bank.deposit(2090171769, 18_000);
-        assertThrows(InvalidPinException.class, ()->bank.checkBalance(2090171769, "123544"));
-    }
-
-    @Test
-    public void BankCanRemoveAccount() throws InvalidPinException {
-        bank.removeAccount(2090171769, "1234");
-        assertEquals(0, bank.numberOfAccounts());
-    }
-
-    @Test
-    public void BankCanRemoveAccountAfterAdding() throws InvalidPinException {
-        Account account2 = bank.registerCustomer("Moh Baba", "2090676790", "1827");
-        assertEquals(2, bank.numberOfAccounts());
-
-        bank.removeAccount(2090676790, "1827");
-        assertEquals(1, bank.numberOfAccounts());
-    }
-
-    @Test
-    public void BankCantRemoveAccountIfPinIsWrong() {
-        assertThrows(InvalidPinException.class, ()->bank.removeAccount(2090171769, "123864"));
+        int accNo2 = account.getAccountNumber();
+        bank.removeAccount(accNo2, "1234");
+        assertEquals(0, bank.checkNoOfCustomers());
     }
 }

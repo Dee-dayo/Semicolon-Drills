@@ -1,77 +1,104 @@
 package bankApp;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Bank {
     private String name;
-    private final List<Account> accounts;
+    private List<Account> accounts = new ArrayList<>();
+    private int accNumber = 1002;
 
-    public Bank(String name) {
+    public Bank(String name){
         this.name = name;
-        accounts = new ArrayList<>();
     }
 
-    public Account registerCustomer(String fullName, String accNo, String accPin) throws InvalidPinException {
-        Account account = new Account(fullName, accNo, accPin);
+
+    public Account registerCustomer(String firstName, String surName, String pin) {
+        String fullName = getFullName(firstName, surName);
+        Account account = new Account(fullName, accNumber, pin);
         accounts.add(account);
+        increaseAccNumber();
         return account;
+    }
+
+    private String getFullName(String firstName, String surName) {
+        return firstName + " " + surName;
+    }
+
+    private void increaseAccNumber() {
+        accNumber += accounts.size();
     }
 
     public Account findAccount(int accNo) {
         for (Account account : accounts) {
-            if (account.getAccountNumber() == accNo) return account;
+            if (validate(accNo, account)) return account;
         }
-         throw new IllegalArgumentException("Account not Found");
+        return null;
     }
 
-    public void deposit(int accNo, int amount) throws InvalidAmountException {
-        Account account = findAccount(accNo);
-        if (account != null) account.deposit(amount);
-        else throw new IllegalArgumentException("Account not Found");
+    private static boolean validate(int accNo, Account account) {
+        return account.getAccountNumber() == accNo;
     }
 
-
-    public void withdraw(int accNo, int amount, String pinNo) throws InvalidPinException, InsufficientFundsException {
-        Account account = findAccount(accNo);
-
-        if (account != null) {
-            int balance = account.checkBalance(pinNo);
-
-            if (balance >= amount) account.withdraw(amount);
-            else throw new InsufficientFundsException();
-        }
-        else throw new IllegalArgumentException("Account not Found");
-    }
-
-    public void transfer(int accNo, int receiverAccNo, int amount, String pinNo) throws InvalidPinException, InsufficientFundsException, InvalidAmountException {
-        Account senderAccount = findAccount(accNo);
-        Account receiverAccount = findAccount(receiverAccNo);
-
-        int senderBalance = senderAccount.checkBalance(pinNo);
-
-        if (senderBalance >0) {
-            senderAccount.withdraw(amount);
-
-            if (receiverAccount != null) receiverAccount.deposit(amount);
-            else throw new IllegalArgumentException("Account not Found");
-        }
-    }
-
-    public int checkBalance(int accNo, String pinNo) throws InvalidPinException {
+    public void deposit(int accNo, int amount) {
         for (Account account : accounts) {
-            if (account.getAccountNumber() == accNo && account.checkPinValidity(pinNo)) return account.checkBalance();
+            if (validate(accNo, account)) account.deposit(amount);
+        }
+    }
+
+    public int checkBalance(int accNo, String pin) {
+        for (Account account : accounts) {
+            if (validate(accNo, account) && validate(pin, account)) return account.getBalance();
         }
         return 0;
     }
 
-    public void removeAccount(int accNo, String pinNo) throws InvalidPinException {
-        Account account = findAccount(accNo);
-
-        if (account != null && account.checkPinValidity(pinNo)) accounts.remove(account);
+    private static boolean validate(String pin, Account account) {
+        return account.verifyPin(pin);
     }
 
-    public int numberOfAccounts() {
+
+    public void withdraw(int accNo, int amount, String pin) {
+        for (Account account : accounts) {
+            if (validate(accNo, account) && validate(pin, account)) account.withdraw(amount, pin);
+        }
+    }
+
+    public void transfer(int senderAccNo, int receiverAccNo, int amount, String pin) {
+        Account sender = findAccount(senderAccNo);
+        Account receiver = findAccount(receiverAccNo);
+        if (sender != null && receiver != null && validate(pin, sender)) {
+            sender.withdraw(amount, pin);
+            receiver.deposit(amount);
+        }
+    }
+
+    public int checkNoOfCustomers() {
         return accounts.size();
+    }
+
+    public void removeAccount(int accNo, String pin) {
+        for (int index = 0; index < accounts.size(); index++){
+            Account account = accounts.get(index);
+            if (validate(accNo, account) && validate(pin, account)) accounts.remove(account);
+        }
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getCustomerName(){
+        for (Account account : accounts) {
+            return account.getName();
+        }
+        return null;
+    }
+
+    public int getCustomerAccNo() {
+        for (Account account : accounts) {
+            return account.getAccountNumber();
+        }
+        return 0;
     }
 }
