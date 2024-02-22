@@ -25,7 +25,7 @@ public class BankApp {
                     System.out.print("Enter surname: ");
                     input.nextLine();
                     String lastName = input.nextLine();
-                    System.out.print("Enter desired pin (Must be between 4 characters): ");
+                    System.out.print("Enter desired pin: ");
                     String pin = input.nextLine();
                     bank.registerCustomer(firstName, lastName, pin);
                     System.out.println("\n<<Account registered successfully>>");
@@ -33,12 +33,24 @@ public class BankApp {
                     break;
 
                 case 2:
-                    System.out.print("\n\nDEPOSIT\nEnter Account number: ");
+                    try {
+                        System.out.print("\nDEPOSIT\nEnter Account number: ");
+                        int accNo = input.nextInt();
+                        System.out.print("Enter deposit amount: ");
+                        int depositAmount = input.nextInt();
+                        bank.deposit(accNo, depositAmount);
+                        System.out.println("\n<<Amount deposited successfully>>\n");
+                    } catch (NoAccountFound message) {
+                        System.out.println("Account number not found\n");
+                    } catch (InvalidAmountException message) {
+                        System.out.println("You cant deposit negative numbers\n");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("\nWITHDRAW\nEnter Account number: ");
                     int accNo = input.nextInt();
-                    System.out.println("Enter deposit amount: ");
-                    int depositAmount = input.nextInt();
-                    bank.deposit(accNo, depositAmount);
-                    System.out.println("\n<<Account registered successfully>>\n");
+                    System.out.println("Enter withdraw amount");
 
 
                 case 8:

@@ -21,7 +21,7 @@ public class BankTest {
 
     @Test
     public void BankCanRegisterCustomer() {
-        assertEquals(account, bank.findAccount(1_000_000_000));
+        assertEquals(account, bank.findAccount(1002));
         assertEquals(1, bank.checkNoOfCustomers());
     }
 

@@ -41,9 +41,13 @@ public class Bank {
     }
 
     public void deposit(int accNo, int amount) {
-        for (Account account : accounts) {
-            if (validate(accNo, account)) account.deposit(amount);
-        }
+        Account account = findAccount(accNo);
+        validate(account);
+        account.deposit(amount);
+    }
+
+    private void validate(Account account) {
+        if (account == null) throw new NoAccountFound("Account not registered");
     }
 
     public int checkBalance(int accNo, String pin) {
@@ -53,7 +57,7 @@ public class Bank {
         return 0;
     }
 
-    private static boolean validate(String pin, Account account) {
+    private boolean validate(String pin, Account account) {
         return account.verifyPin(pin);
     }
 
@@ -67,10 +71,14 @@ public class Bank {
     public void transfer(int senderAccNo, int receiverAccNo, int amount, String pin) {
         Account sender = findAccount(senderAccNo);
         Account receiver = findAccount(receiverAccNo);
-        if (sender != null && receiver != null && validate(pin, sender)) {
+        if (validateAccount(sender) && validateAccount(receiver) && validate(pin, sender)) {
             sender.withdraw(amount, pin);
             receiver.deposit(amount);
         }
+    }
+
+    private static boolean validateAccount(Account sender) {
+        return sender != null;
     }
 
     public int checkNoOfCustomers() {
