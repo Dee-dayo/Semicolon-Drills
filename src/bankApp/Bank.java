@@ -36,7 +36,7 @@ public class Bank {
         return null;
     }
 
-    private static boolean validate(int accNo, Account account) {
+    private boolean validate(int accNo, Account account) {
         return account.getAccountNumber() == accNo;
     }
 
@@ -64,7 +64,9 @@ public class Bank {
 
     public void withdraw(int accNo, int amount, String pin) {
         for (Account account : accounts) {
-            if (validate(accNo, account) && validate(pin, account)) account.withdraw(amount, pin);
+            validate(accNo, account);
+            validate(pin, account);
+            account.withdraw(amount, pin);
         }
     }
 

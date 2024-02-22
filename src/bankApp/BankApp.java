@@ -48,10 +48,23 @@ public class BankApp {
                     break;
 
                 case 3:
-                    System.out.println("\nWITHDRAW\nEnter Account number: ");
-                    int accNo = input.nextInt();
-                    System.out.println("Enter withdraw amount");
-
+                    try {
+                        System.out.print("\nWITHDRAW\nEnter Account number: ");
+                        int accNo = input.nextInt();
+                        System.out.print("Enter withdraw amount: ");
+                        int withdrawAmount = input.nextInt();
+                        System.out.print("Enter pin number: ");
+                        input.nextLine();
+                        String pinNo = input.nextLine();
+                        bank.withdraw(accNo, withdrawAmount, pinNo);
+                    } catch (NoAccountFound message) {
+                        System.out.println("You cant deposit negative numbers\n");
+                    } catch (InvalidAmountException message) {
+                        System.out.println("You cant withdraw negative numbers\n");
+                    } catch (InvalidPinException message) {
+                        System.out.println("Incorrect Pin");
+                    }
+                    break;
 
                 case 8:
                     System.out.println("Thank you for banking with us");
