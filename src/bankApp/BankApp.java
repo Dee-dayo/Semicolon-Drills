@@ -3,78 +3,74 @@ package bankApp;
 import java.util.Scanner;
 
 public class BankApp {
-    private static Bank bank;
-
+    private static Bank ubaBank = new Bank("UBA Bank");
 
     public static void main(String[] args) {
-        bank = new Bank("UBA");
-        Scanner input = new Scanner(System.in);
-        int answer;
+        mainApp();
+    }
 
-        do {
-            System.out.printf("Welcome to bank %s\n\n", bank.getName());
-            System.out.println("Press 1 to register \nPress 2 to Deposit: \n" +
-                    "Press 3 to Withdraw \nPress 4 to transfer: \nPress 5 to Check Balance\n" +
-                    "Press 6 to Find Account\nPress 7 to RemoveAccount\nPress 8 to exit");
-            answer = input.nextInt();
+    public static void mainApp(){
+        goToDisplayPage();
+    }
 
-            switch (answer) {
-                case 1:
-                    System.out.print("\n\nREGISTER ACCOUNT\nEnter first name: ");
-                    String firstName = input.next();
-                    System.out.print("Enter surname: ");
-                    input.nextLine();
-                    String lastName = input.nextLine();
-                    System.out.print("Enter desired pin: ");
-                    String pin = input.nextLine();
-                    bank.registerCustomer(firstName, lastName, pin);
-                    System.out.println("\n<<Account registered successfully>>");
-                    System.out.printf("Dear %s, Your account number is: %d\n\n", bank.getCustomerName(), bank.getCustomerAccNo());
-                    break;
+    private static void goToDisplayPage() {
+        print("""
+                Welcome to UBA Bank App
+                1-> Register Account
+                2-> Deposit
+                3-> Withdraw
+                4-> Transfer
+                5-> Check Balance
+                6-> Delete Account
+                7-> Exit App
+                """);
 
-                case 2:
-                    try {
-                        System.out.print("\nDEPOSIT\nEnter Account number: ");
-                        int accNo = input.nextInt();
-                        System.out.print("Enter deposit amount: ");
-                        int depositAmount = input.nextInt();
-                        bank.deposit(accNo, depositAmount);
-                        System.out.println("\n<<Amount deposited successfully>>\n");
-                    } catch (NoAccountFound message) {
-                        System.out.println("Account number not found\n");
-                    } catch (InvalidAmountException message) {
-                        System.out.println("You cant deposit negative numbers\n");
-                    }
-                    break;
+        String userInput = input("");
 
-                case 3:
-                    try {
-                        System.out.print("\nWITHDRAW\nEnter Account number: ");
-                        int accNo = input.nextInt();
-                        System.out.print("Enter withdraw amount: ");
-                        int withdrawAmount = input.nextInt();
-                        System.out.print("Enter pin number: ");
-                        input.nextLine();
-                        String pinNo = input.nextLine();
-                        bank.withdraw(accNo, withdrawAmount, pinNo);
-                    } catch (NoAccountFound message) {
-                        System.out.println("You cant deposit negative numbers\n");
-                    } catch (InvalidAmountException message) {
-                        System.out.println("You cant withdraw negative numbers\n");
-                    } catch (InvalidPinException message) {
-                        System.out.println("Incorrect Pin");
-                    }
-                    break;
+        switch(userInput.charAt(0)) {
+            case '1' -> registerAccount();
+            case '2' -> deposit();
+//            case '3' -> withdraw();
+//            case '4' -> transfer();
+//            case '5' -> checkBalance();
+//            case '6' -> removeAcc();
+            case '7' -> exit();
+            default -> goToDisplayPage();
+        }
+    }
 
-                case 8:
-                    System.out.println("Thank you for banking with us");
-                    break;
-
-                default:
-                    System.out.println("Invalid input");
-            }
-        } while (answer != 8);
+    private static void deposit() {
+        print("\nDEPOSIT MONEY\n");
+        String accNo = input("Enter Account number: ");
 
     }
+
+    private static void registerAccount() {
+        print("\nREGISTER A NEW ACCOUNT\n");
+        String firstName = input("Enter first name: ");
+        String lastName = input("Enter surname: ");
+        String pin = input("Enter desired pin: ");
+        Account account = ubaBank.registerCustomer(firstName, lastName, pin);
+        print("***Account Registered Successfully***\n");
+        print("Welcome " + account.getName() +
+                "\nYour accont number is " + account.getAccountNumber()+"\n\n");
+        goToDisplayPage();
+    }
+
+    private static void exit() {
+        print("Thanks for banking with us");
+        System.exit(0);
+    }
+
+    private static void print(String display) {
+        System.out.print(display);
+    }
+
+    private static String input(String prompt){
+        print(prompt);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
 }
 
