@@ -21,8 +21,7 @@ public class BankApp {
                 3-> Withdraw
                 4-> Transfer
                 5-> Check Balance
-                6-> Delete Account
-                7-> Exit App
+                6-> Exit App
                 """);
 
         String userInput = input("");
@@ -32,10 +31,25 @@ public class BankApp {
             case '2' -> deposit();
             case '3' -> withdraw();
             case '4' -> transfer();
-//            case '5' -> checkBalance();
-//            case '6' -> removeAcc();
-            case '7' -> exit();
+            case '5' -> checkBalance();
+            case '6' -> exit();
             default -> goToDisplayPage();
+        }
+    }
+
+    private static void checkBalance() {
+        print("\nBALANCE CHECKER\n");
+        String accNo = input("Enter account number: ");
+        String pin = input("Enter pin: ");
+        try {
+            int balance = ubaBank.checkBalance(Integer.parseInt(accNo), pin);
+            print("Your remaining balance is " + balance);
+        } catch (Exception e){
+            print(e.getMessage());
+        }
+        finally {
+            print("\n");
+            goToDisplayPage();
         }
     }
 
