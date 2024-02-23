@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.Scanner;
 
 public class BankApp {
-    private static Bank ubaBank = new Bank("UBA Bank");
+    private static final Bank ubaBank = new Bank("UBA Bank");
 
     public static void main(String[] args) {
         mainApp();
@@ -132,8 +132,7 @@ public class BankApp {
 //        print(prompt);
 //        Scanner scanner = new Scanner(System.in);
 //        return scanner.nextLine();
-        String userInput = JOptionPane.showInputDialog(null, prompt);
-        return userInput;
+        return JOptionPane.showInputDialog(null, prompt);
     }
 
 }
