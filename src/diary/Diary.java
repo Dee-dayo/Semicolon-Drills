@@ -38,7 +38,7 @@ public class Diary {
         if (isCorrectPassword(password)) isLocked = false;
     }
 
-    private boolean isCorrectPassword(String password){
+    public boolean isCorrectPassword(String password){
         return this.password.equals(password);
     }
 
@@ -62,5 +62,9 @@ public class Diary {
         Entry entry = findEntrybyIdNo(idNo);
         entry.setTitle(entryTitle);
         entry.setBody(entryBody);
+    }
+
+    public String getUsername(){
+        return userName;
     }
 }
