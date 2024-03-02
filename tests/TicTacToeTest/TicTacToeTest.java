@@ -90,5 +90,13 @@ public class TicTacToeTest {
         assertEquals(TicTacValue.O, ticTacToe.getBoard()[1][1]);
     }
 
+    @Test
+    public void testPlayerCantPlayAtInvalidPosition(){
+        Player[] players = ticTacToe.getPlayers();
+        Player playerOne = players[0];
+
+        assertThrows(InvalidInputException.class, ()-> playerOne.playGame(ticTacToe,5, 9));
+    }
+
 
 }
