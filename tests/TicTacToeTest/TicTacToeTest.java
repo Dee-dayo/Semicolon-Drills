@@ -2,6 +2,7 @@ package TicTacToeTest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ticTacToe.InvalidInputException;
 import ticTacToe.Player;
 import ticTacToe.TicTacToe;
 import ticTacToe.TicTacValue;
@@ -65,4 +66,29 @@ public class TicTacToeTest {
 
         assertEquals(TicTacValue.X, ticTacToe.getBoard()[1][1]);
     }
+
+    @Test
+    public void testPlayerOneCantPlayIfBoardIsFilledAlready(){
+        Player[] players = ticTacToe.getPlayers();
+        Player playerOne = players[0];
+
+        playerOne.playGame(ticTacToe,2, 2);
+        assertEquals(TicTacValue.X, ticTacToe.getBoard()[1][1]);
+
+        assertThrows(InvalidInputException.class, ()-> playerOne.playGame(ticTacToe, 2, 2));
+    }
+
+    @Test
+    public void testPlayerTwoCanPlayGame(){
+        Player[] players = ticTacToe.getPlayers();
+        Player playerTwo = players[1];
+
+        playerTwo.playGame(ticTacToe,2, 2);
+
+//        System.out.println(Arrays.deepToString(ticTacToe.getBoard()));
+
+        assertEquals(TicTacValue.O, ticTacToe.getBoard()[1][1]);
+    }
+
+
 }

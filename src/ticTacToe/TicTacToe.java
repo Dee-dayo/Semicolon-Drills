@@ -33,8 +33,15 @@ public class TicTacToe {
 
             if (board[rowPosition - 1][columnPosition - 1] == TicTacValue.EMPTY) {
                 board[rowPosition - 1][columnPosition - 1] = TicTacValue.X;
+            } else {
+                throw new InvalidInputException("This place is already filled");
             }
-
+        } else {
+            if (board[rowPosition - 1][columnPosition - 1] == TicTacValue.EMPTY) {
+                board[rowPosition - 1][columnPosition - 1] = TicTacValue.O;
+            } else {
+                throw new InvalidInputException("This place is already filled");
+            }
         }
 
 //
