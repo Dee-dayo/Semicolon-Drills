@@ -45,7 +45,5 @@ public class TicTacToe {
                 }
             }
         } else throw new InvalidInputException("Board has only 3 rows & 3 columns");
-
-//
     }
 }

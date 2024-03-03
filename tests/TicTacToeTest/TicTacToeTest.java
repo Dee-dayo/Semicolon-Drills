@@ -37,10 +37,8 @@ public class TicTacToeTest {
         TicTacValue[][] actual = ticTacToe.getBoard();
 
         TicTacValue[][] expected = new TicTacValue[3][3];
-        for (int counter = 0; counter<expected.length; counter++){
-            for (int index = 0; index <expected[counter].length; index++){
-                expected[counter][index] = TicTacValue.EMPTY;
-            }
+        for (TicTacValue[] ticTacValues : expected) {
+            Arrays.fill(ticTacValues, TicTacValue.EMPTY);
         }
 
         assertArrayEquals(expected, actual);
