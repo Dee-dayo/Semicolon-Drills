@@ -1,5 +1,7 @@
 package sevenSegment;
 
+import ticTacToe.InvalidInputException;
+
 public class SevenSegmentDisplay {
 
     public static void displayScreen(String number) {
@@ -30,8 +32,10 @@ public class SevenSegmentDisplay {
 
                 if (num[3].equals("1")) System.out.println("######");
                 else System.out.println();
-            }
-        }
+
+            } else throw new SevenSegmentOffException("You didnt switch on the board");
+
+        } else throw new InvalidInputException("Number must be 8 digits long");
     }
 
 }

@@ -31,19 +31,19 @@ public class TicTacToe {
 
     public void markBoard(int playerNumber, int rowPosition, int columnPosition) {
         if (rowPosition >= 1 && rowPosition <= 3 && columnPosition >=1 && columnPosition <= 3) {
-            if (playerNumber == 1) {
-
-                if (board[rowPosition - 1][columnPosition - 1] == TicTacValue.EMPTY) {
+            if (board[rowPosition - 1][columnPosition - 1] == TicTacValue.EMPTY) {
+                if (playerNumber == 1) {
                     board[rowPosition - 1][columnPosition - 1] = TicTacValue.X;
                 } else {
-                    throw new InvalidInputException("This place is already filled");
-                }
-            } else {
-                if (board[rowPosition - 1][columnPosition - 1] == TicTacValue.EMPTY) {
                     board[rowPosition - 1][columnPosition - 1] = TicTacValue.O;
-                } else {
-                    throw new InvalidInputException("This place is already filled");
                 }
+
+                TicTacValue winner = checkWinner();
+                if (winner != TicTacValue.EMPTY) isGameEnd = true;
+                else checkGameEnd();
+
+            } else {
+                throw new InvalidInputException("This place is already filled");
             }
         } else throw new InvalidInputException("Board has only 3 rows & 3 columns");
     }
