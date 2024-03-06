@@ -1,17 +1,16 @@
 package ticTacToeSecondTake;
-
 import ticTacToe.InvalidInputException;
-
 import java.util.Arrays;
+import static ticTacToeSecondTake.TicTacToeGameTest.print;
 
 public class TicTacToe2 {
     private final FillTicTacToe[][] ticTacToeTable;
     private final int players;
     private int currentPlayer = 1;
-    private boolean gameStatus = false;
+    private boolean isGameEnd = false;
 
 
-    public TicTacToe2(){
+    public TicTacToe2() {
         ticTacToeTable = new FillTicTacToe[3][3];
         for (FillTicTacToe[] objects : ticTacToeTable) {
             Arrays.fill(objects, FillTicTacToe.EMPTY);
@@ -30,40 +29,39 @@ public class TicTacToe2 {
 
     public void play(int rowNumber, int columnNumber) {
         if (rowNumber >= 1 && rowNumber <= 3 && columnNumber >= 1 && columnNumber <= 3) {
-            if (currentPlayer == 1) {
-                if (ticTacToeTable[rowNumber - 1][columnNumber - 1] == FillTicTacToe.EMPTY) {
+            if (ticTacToeTable[rowNumber - 1][columnNumber - 1] == FillTicTacToe.EMPTY) {
+                if (currentPlayer == 1) {
                     ticTacToeTable[rowNumber - 1][columnNumber - 1] = FillTicTacToe.X;
                     currentPlayer = 2;
-                }
-                else throw new InvalidInputException("Position already filled");
-            } else if (currentPlayer == 2) {
-                if (ticTacToeTable[rowNumber - 1][columnNumber - 1] == FillTicTacToe.EMPTY) {
+                } else {
                     ticTacToeTable[rowNumber - 1][columnNumber - 1] = FillTicTacToe.O;
                     currentPlayer = 1;
                 }
-                else throw new InvalidInputException("Position already filled");
-            }
+
+                int winner = checkWinner();
+                if (winner != 0) isGameEnd = true;
+                else checkGameEnd();
+
+            } else throw new InvalidInputException("Position already filled");
         } else throw new InvalidInputException("Board has only 3 rows and 3 columns");
     }
 
-    private void checkGameEnd(){
-        for(int index = 0; index < ticTacToeTable.length; index++){
-            for (int count = 0; count < ticTacToeTable.length; count++){
-                if (ticTacToeTable[index][count] == FillTicTacToe.EMPTY){
-                    return;
-                }
+
+    private void checkGameEnd() {
+        for (FillTicTacToe[] fillTicTacToes : ticTacToeTable) {
+            for (int count = 0; count < ticTacToeTable.length; count++) {
+                if (fillTicTacToes[count] == FillTicTacToe.EMPTY) return;
             }
         }
-        gameStatus = true;
+        isGameEnd = true;
     }
 
     public boolean isGameEnd() {
-        checkGameEnd();
-        return gameStatus;
+        return isGameEnd;
     }
 
-    public int checkWinner(){
-        for (int row = 0; row < 3; row++){
+    public int checkWinner() {
+        for (int row = 0; row < 3; row++) {
             if (ticTacToeTable[row][0] == ticTacToeTable[row][1] && ticTacToeTable[row][0] == ticTacToeTable[row][2]) {
                 if (ticTacToeTable[row][0] == FillTicTacToe.X) return 1;
                 else return 2;
@@ -80,84 +78,22 @@ public class TicTacToe2 {
         if ((ticTacToeTable[0][0] == ticTacToeTable[1][1] && ticTacToeTable[1][1] == ticTacToeTable[2][2]) ||
                 (ticTacToeTable[0][2] == ticTacToeTable[1][1] && ticTacToeTable[1][1] == ticTacToeTable[2][0])) {
             if (ticTacToeTable[1][1] == FillTicTacToe.X) {
-                return 1; // Player 1 wins
+                return 1;
             } else if (ticTacToeTable[1][1] == FillTicTacToe.O) {
-                return 2; // Player 2 wins
+                return 2;
             }
         }
         return 0;
     }
 
-    public void resetGame() {
-        for (FillTicTacToe[] row : ticTacToeTable) {
-            Arrays.fill(row, FillTicTacToe.EMPTY);
+    public void displayBoard() {
+        print("===============================");
+        for (FillTicTacToe[] fillTicTacToes : ticTacToeTable) {
+            for (int column = 0; column < ticTacToeTable.length; column++) {
+                System.out.print("| " + fillTicTacToes[column] + " |  ");
+            }
+            print("");
         }
-        currentPlayer = 1;
-        gameStatus = false;
+        print("===============================");
     }
 }
-
-
-//    public int checkWinner() {
-//        // Check rows
-//        for (int i = 0; i < 3; i++) {
-//            if (ticTacToeTable[i][0] == ticTacToeTable[i][1] && ticTacToeTable[i][1] == ticTacToeTable[i][2]) {
-//                if (ticTacToeTable[i][0] == FillTicTacToe.X) {
-//                    return 1; // Player 1 wins
-//                } else if (ticTacToeTable[i][0] == FillTicTacToe.O) {
-//                    return 2; // Player 2 wins
-//                }
-//            }
-//        }
-//
-//        // Check columns
-//        for (int i = 0; i < 3; i++) {
-//            if (ticTacToeTable[0][i] == ticTacToeTable[1][i] && ticTacToeTable[1][i] == ticTacToeTable[2][i]) {
-//                if (ticTacToeTable[0][i] == FillTicTacToe.X) {
-//                    return 1; // Player 1 wins
-//                } else if (ticTacToeTable[0][i] == FillTicTacToe.O) {
-//                    return 2; // Player 2 wins
-//                }
-//            }
-//        }
-//
-//        // Check diagonals
-//        if ((ticTacToeTable[0][0] == ticTacToeTable[1][1] && ticTacToeTable[1][1] == ticTacToeTable[2][2]) ||
-//                (ticTacToeTable[0][2] == ticTacToeTable[1][1] && ticTacToeTable[1][1] == ticTacToeTable[2][0])) {
-//            if (ticTacToeTable[1][1] == FillTicTacToe.X) {
-//                return 1; // Player 1 wins
-//            } else if (ticTacToeTable[1][1] == FillTicTacToe.O) {
-//                return 2; // Player 2 wins
-//            }
-//        }
-//
-//        return 0; // No winner yet
-//    }
-//
-//    public boolean isGameEnd() {
-//        int winner = checkWinner();
-//        if (winner != 0) {
-//            gameStatus = true; // Game ends if there's a winner
-//            return true;
-//        }
-//
-//        // Check for draw
-//        boolean draw = true;
-//        for (int i = 0; i < 3; i++) {
-//            for (int j = 0; j < 3; j++) {
-//                if (ticTacToeTable[i][j] == FillTicTacToe.EMPTY) {
-//                    draw = false;
-//                    break;
-//                }
-//            }
-//            if (!draw) {
-//                break;
-//            }
-//        }
-//        if (draw) {
-//            gameStatus = true; // Game ends in a draw
-//        }
-//
-//        return gameStatus;
-//    }
-//}

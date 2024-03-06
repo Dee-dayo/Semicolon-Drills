@@ -1,6 +1,5 @@
 package TicTacToeTest;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ticTacToe.InvalidInputException;
@@ -59,13 +58,6 @@ public class TicTacToeSecondTake {
     }
 
     @Test
-    public void testGameCanCheckIfFinished(){
-        ticTacToe2.play(1, 1);
-        ticTacToe2.play(2, 2);
-        assertFalse(ticTacToe2.isGameEnd());
-    }
-
-    @Test
     public void testGameThrowExceptionIfPositionAlreadyFixed(){
         ticTacToe2.play(1, 1);
         ticTacToe2.play(1, 2);
@@ -117,5 +109,16 @@ public class TicTacToeSecondTake {
         assertEquals(0, ticTacToe2.checkWinner());
     }
 
+    @Test
+    public void testGameEndsWhenAWinnerIsAlreadyHad(){
+        assertFalse(ticTacToe2.isGameEnd());
+        ticTacToe2.play(3, 1);
+        ticTacToe2.play(2, 1);
+        ticTacToe2.play(2,2);
+        ticTacToe2.play(1,1);
+        ticTacToe2.play(1, 3);
 
+        assertTrue(ticTacToe2.isGameEnd());
+        assertEquals(1, ticTacToe2.checkWinner());
+    }
 }

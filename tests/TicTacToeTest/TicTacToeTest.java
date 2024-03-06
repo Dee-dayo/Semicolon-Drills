@@ -96,5 +96,44 @@ public class TicTacToeTest {
         assertThrows(InvalidInputException.class, ()-> playerOne.playGame(ticTacToe,5, 9));
     }
 
+    @Test
+    public void testGameEndWhenBoardFilled(){
+        Player[] players = ticTacToe.getPlayers();
+        Player playerOne = players[0];
+        Player playerTwo = players[1];
 
+        assertFalse(ticTacToe.isGameEnd());
+
+        playerOne.playGame(ticTacToe, 1, 1);
+        playerTwo.playGame(ticTacToe, 1, 2);
+        playerOne.playGame(ticTacToe, 2, 2);
+        playerTwo.playGame(ticTacToe, 1, 3);
+        playerOne.playGame(ticTacToe, 2, 3);
+        playerTwo.playGame(ticTacToe, 2, 1);
+        playerOne.playGame(ticTacToe, 3, 1);
+        playerTwo.playGame(ticTacToe, 3, 3);
+        playerOne.playGame(ticTacToe, 3, 2);
+
+        assertTrue(ticTacToe.isGameEnd());
+    }
+
+    @Test
+    public void testGameCheckWinnerWenGameEnds(){
+        Player[] players = ticTacToe.getPlayers();
+        Player playerOne = players[0];
+        Player playerTwo = players[1];
+        assertFalse(ticTacToe.isGameEnd());
+
+        playerOne.playGame(ticTacToe, 1, 1);
+        playerTwo.playGame(ticTacToe, 2, 1);
+        playerOne.playGame(ticTacToe, 3, 1);
+        playerTwo.playGame(ticTacToe, 1, 2);
+        playerOne.playGame(ticTacToe, 2, 2);
+        playerTwo.playGame(ticTacToe, 3, 2);
+        playerOne.playGame(ticTacToe, 3, 3);
+        playerTwo.playGame(ticTacToe, 1,3);
+        playerOne.playGame(ticTacToe, 2, 3);
+
+        assertEquals(TicTacValue.X, ticTacToe.checkWinner());
+    }
 }
