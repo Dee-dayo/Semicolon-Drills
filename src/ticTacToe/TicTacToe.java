@@ -1,5 +1,4 @@
 package ticTacToe;
-import ticTacToeSecondTake.FillTicTacToe;
 import java.util.Arrays;
 
 public class TicTacToe {
@@ -64,7 +63,7 @@ public class TicTacToe {
 
     public TicTacValue checkWinner() {
         for (int row = 0; row < 3; row++) {
-            if (board[row][0] == board[row][1] && board[row][0] == board[row][2]) {
+            if (board[row][0] == board[row][1] && board[row][0] == board[row] [2]) {
                 if (board[row][0] == TicTacValue.X) return TicTacValue.X;
                 else return TicTacValue.O;
             }

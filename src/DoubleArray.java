@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class DoubleArray {
     public static int[] arrayDouble(int[] myArray) {
         int [] newArray = new int[myArray.length * 2];
@@ -39,5 +41,4 @@ public class DoubleArray {
 
         return outputArray;
     }
-
 }
