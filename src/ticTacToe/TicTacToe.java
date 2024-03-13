@@ -85,4 +85,14 @@ public class TicTacToe {
 
         return TicTacValue.EMPTY;
     }
+
+    public void printBoard() {
+        for (TicTacValue[] ticTacValues : board) {
+            for (int index2 = 0; index2 < board.length; index2++) {
+                System.out.print(ticTacValues[index2] + " | ");
+            }
+            System.out.println();
+            System.out.println("____________________");
+        }
+    }
 }

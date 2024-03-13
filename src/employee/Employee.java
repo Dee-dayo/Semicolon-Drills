@@ -1,6 +1,6 @@
 package employee;
 
-public abstract class Employee {
+public abstract class Employee implements Payable{
     private final String firstName;
     private final String lastName;
     private final String SocialSecurityNumber;
@@ -28,4 +28,8 @@ public abstract class Employee {
     }
 
     public abstract double earnings();
+
+    public double getPaymentAmount(){
+        return earnings();
+    }
 }
