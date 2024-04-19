@@ -86,5 +86,12 @@ public class FireDrill {
         return product;
     }
 
+    public static int highestProduct2(int[] actual){
+        Arrays.sort(actual);
+        int first = actual[0] * actual[1];
+        int second = actual[actual.length-1] * actual[actual.length-2];
+        return Integer.max(first, second);
+    }
+
 
 }

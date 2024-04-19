@@ -54,7 +54,7 @@ public class FireDrillTest {
 
     @Test
     public void testFunctionReturnsForNegative(){
-        int[] actual = {-0};
-        assertEquals(-0, FireDrill.highestProduct(actual));
+        int[] actual = {1, 5, 10, 4, 0};
+        assertEquals(50, FireDrill.highestProduct2(actual));
     }
 }
