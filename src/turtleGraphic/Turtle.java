@@ -63,7 +63,7 @@ public class Turtle {
         int column = currentPosition.getCurrentColumn();
 
         for (int rowIndex = numberOfSteps - 1; rowIndex >= 0; rowIndex--) {
-            floorBoard[row ]
+//            floorBoard[row ]
         }
     }
 

@@ -46,4 +46,15 @@ public class FireDrillTest {
         assertEquals(1, yearCalculator("12/12/2022"));
     }
 
+    @Test
+    public void testFunctionReturnsHighestProduct(){
+        int[] actual = {-8};
+        assertEquals(-8, FireDrill.highestProduct(actual));
+    }
+
+    @Test
+    public void testFunctionReturnsForNegative(){
+        int[] actual = {-0};
+        assertEquals(-0, FireDrill.highestProduct(actual));
+    }
 }

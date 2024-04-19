@@ -2,8 +2,29 @@ package drills;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class FireDrill {
+
+    public static int[] maxMinDifference(int[] inputArray){
+       int[] result = new int[1];
+       int min = inputArray[0];
+       int max = inputArray[0];
+
+       for (int index = 0; index < inputArray.length; index++) {
+           if (inputArray[index] < min) {
+               min = inputArray[index];
+           }
+           if (inputArray[index] > max) {
+               max = inputArray[index];
+           }
+       }
+       result[0] = max - min;
+       return result;
+    }
+
+
     public static int[] returnOneAndZeroList(int[] inputArray) {
         int[] outputArray = new int[inputArray.length];
 
@@ -49,5 +70,21 @@ public class FireDrill {
         Period period = Period.between(inputDate, currentDate);
         return period.getYears();
     }
+
+    public static int highestProduct(int[] actual) {
+        if (actual.length == 0) return 0;
+        if (actual.length==1) return actual[0];
+
+        int product = Integer.MIN_VALUE;
+        for (int row : actual) {
+            for (int column : actual) {
+                int answer = row * column;
+                if (row == column) continue;
+                if (answer > product) product = answer;
+            }
+        }
+        return product;
+    }
+
 
 }
