@@ -75,4 +75,25 @@ class DataValidatorTest {
         boolean expected = DataValidator.isEmailValid(email);
         assertFalse(expected);
     }
+
+    @Test
+    public void testSemicolonMail(){
+        String email = "o.olajide@semicolon.africa";
+        boolean expected = DataValidator.isSemicolonEmailValid(email);
+        assertTrue(expected);
+    }
+
+    @Test
+    public void testSemicolonMail2(){
+        String email = "olajide@native.semicolon.africa";
+        boolean expected = DataValidator.isSemicolonEmailValid(email);
+        assertTrue(expected);
+    }
+
+    @Test
+    public void testSemicolonMail3(){
+        String email = "OLAjide@semicolon.africa";
+        boolean expected = DataValidator.isSemicolonEmailValid(email);
+        assertTrue(expected);
+    }
 }

@@ -22,4 +22,10 @@ public class DataValidator {
         String regex = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
         return email.matches(regex);
     }
+
+    public static boolean isSemicolonEmailValid(String email){
+        email = email.toLowerCase();
+        String regex = "([a-z]\\.)?[a-z]+@(semicolon|enum|learnspace|native.semicolon).africa";
+        return email.matches(regex);
+    }
 }
