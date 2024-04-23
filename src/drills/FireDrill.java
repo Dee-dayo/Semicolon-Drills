@@ -90,7 +90,7 @@ public class FireDrill {
         Arrays.sort(actual);
         int first = actual[0] * actual[1];
         int second = actual[actual.length-1] * actual[actual.length-2];
-        return Integer.max(first, second);
+        return Math.max(first, second);
     }
 
 
