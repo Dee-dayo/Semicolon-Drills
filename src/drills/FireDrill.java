@@ -2,8 +2,8 @@ package drills;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class FireDrill {
 
@@ -94,4 +94,64 @@ public class FireDrill {
     }
 
 
+    public static String reverseString(String actual) {
+        String word = "";
+        StringBuilder reversed = new StringBuilder();
+        ArrayList<String> words = new ArrayList<>();
+
+
+        for(int index = 0; index < actual.length(); index++){
+            char character = actual.charAt(index);
+
+            if (!(character == ' ')) reversed.append(character);
+            else {
+                words.add(reversed.toString());
+                reversed = new StringBuilder();
+            }
+        }
+        words.add(reversed.toString());
+
+        for (int i = words.size()-1; i >= 0; i--) {
+            word += words.get(i) + " ";
+        }
+
+        return word.strip();
+    }
+
+
+    public static boolean wordPangram(String sentence) {
+        sentence = sentence.toLowerCase();
+
+        boolean[] alphabetPresent = new boolean[26];
+
+        for (int i = 0; i < sentence.length(); i++) {
+            char ch = sentence.charAt(i);
+
+            if (Character.isLetter(ch)) {
+                int index = ch - 'a';
+                alphabetPresent[index] = true;
+            }
+        }
+
+        for (boolean isPresent : alphabetPresent) {
+            if (!isPresent) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int[] numberPosition(int[] actual) {
+        int[] actualCopy = actual.clone();
+        int[] result = new int[actual.length];
+        Arrays.sort(actualCopy);
+
+        for(int index = 0; index < actual.length; index++){
+            for(int count =0; count < actualCopy.length; count++){
+                if (actual[index] == actualCopy[count]) result[index] = count+1;
+            }
+        }
+
+        return result;
+    }
 }

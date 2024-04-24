@@ -4,8 +4,7 @@ import drills.FireDrill;
 import org.junit.jupiter.api.Test;
 
 import static drills.FireDrill.yearCalculator;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FireDrillTest {
     @Test
@@ -57,4 +56,27 @@ public class FireDrillTest {
         int[] actual = {1, 5, 10, 4, 0};
         assertEquals(50, FireDrill.highestProduct2(actual));
     }
+
+    @Test
+    public void testFunctionReturnsReverse(){
+        String actual = "It is still a beautiful world";
+        String expected = "world beautiful a still is It";
+        assertEquals(expected, FireDrill.reverseString(actual));
+    }
+
+    @Test
+    public void testFunctionShowsPosition(){
+        int[] actual = {10, 3, 6};
+        int[] expected = {3, 1, 2};
+        int[] answer = FireDrill.numberPosition(actual);
+        assertArrayEquals(expected, answer);
+    }
+
+    @Test
+    public void testFunctionChecksIfWordContainsAllAphabeth(){
+        String actual = "the quick brown fox jumps over the lazy dog";
+        assertTrue(FireDrill.wordPangram(actual));
+    }
+
+
 }

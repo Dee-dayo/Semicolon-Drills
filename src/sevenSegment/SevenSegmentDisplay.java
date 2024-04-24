@@ -38,4 +38,9 @@ public class SevenSegmentDisplay {
         } else throw new InvalidInputException("Number must be 8 digits long");
     }
 
+    public static void main(String[] args) {
+        String display = "11111111";
+        displayScreen(display);
+    }
+
 }
