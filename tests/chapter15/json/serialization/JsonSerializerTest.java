@@ -3,6 +3,8 @@ package chapter15.json.serialization;
 import org.junit.jupiter.api.Test;
 
 
+import java.time.LocalDate;
+
 import static chapter15.json.serialization.Sex.FEMALE;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,12 +14,12 @@ class JsonSerializerTest {
     public void testJsonSerializer() {
         Person person = new Person();
         person.setName("Aramide");
-        person.setDateOfBirth("2024-3-03");
+        person.setDateOfBirth(LocalDate.of(2024, 3, 3));
         person.setSex(FEMALE);
         person.setPhoneNumber("09203938394");
 
         String json = JsonSerializer.serialize(person);
-        String expected = "{\"name\":\"Aramide\",\"dateOfBirth\":\"2024-3-03\",\"phoneNumber\":\"09203938394\",\"sex\":\"FEMALE\"}";
+        String expected = "{\"name\":\"Aramide\",\"dateOfBirth\":[2024,3,3],\"phoneNumber\":\"09203938394\",\"sex\":\"FEMALE\"}";
         assertEquals(expected, json);
     }
 
@@ -25,7 +27,7 @@ class JsonSerializerTest {
     public void testJsonDeserialize(){
         Person person = new Person();
         person.setName("Aramide");
-        person.setDateOfBirth("2024-3-03");
+        person.setDateOfBirth(LocalDate.of(2024, 3, 3));
         person.setSex(FEMALE);
         person.setPhoneNumber("09203938394");
         String json = JsonSerializer.serialize(person);

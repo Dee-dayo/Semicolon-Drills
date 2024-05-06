@@ -1,8 +1,19 @@
 package chapter15.json.serialization;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
+import java.time.LocalDate;
+
+// @JsonInnclude(JsonInclude.Include.NON_NULL) dis make sure if anyone is null, it doesnt add to the json
 public class Person {
     private String name;
-    private String dateOfBirth;
+    @JsonSerialize(using = LocalDateSerializer.class)  //dis converts a class to json files for u
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate dateOfBirth;  //if u anotate @jsonpropert("Dob") it changes the attribute name to dob
     private String phoneNumber;
     private Sex sex;
 
@@ -14,11 +25,11 @@ public class Person {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
