@@ -78,5 +78,11 @@ public class FireDrillTest {
         assertTrue(FireDrill.wordPangram(actual));
     }
 
+    @Test
+    public void testFunctionAddsTwoNumbers(){
+        int num1 = -10;
+        int num2 = -10;
+        assertEquals(-20, FireDrill.addition(num1, num2));
+    }
 
 }
