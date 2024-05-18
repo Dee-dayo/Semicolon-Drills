@@ -159,4 +159,20 @@ public class FireDrill {
         return -(-num1) - (-num2);
     }
 
+    public static StringBuilder occurringNumbers(int[] actual) {
+        StringBuilder result = new StringBuilder();
+        int counter = 0;
+
+        for(int index = 0; index < actual.length; index++){
+            for(int count = 0; count < actual.length; count++){
+                if (actual[index] == actual[count]) {
+                    counter++;
+                }
+            }
+            result.append(actual[index]).append(":").append(counter).append(", ");
+            counter = 0;
+        }
+
+        return result;
+    }
 }

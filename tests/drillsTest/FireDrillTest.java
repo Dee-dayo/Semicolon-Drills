@@ -85,4 +85,11 @@ public class FireDrillTest {
         assertEquals(-20, FireDrill.addition(num1, num2));
     }
 
+    @Test
+    public void testFunctionReturnsOccurringNumbers(){
+        int[] actual = {1, 2, 2, 1, 3};
+        String expected = "1:2, 2:2, 3:1";
+        assertEquals(expected, FireDrill.occurringNumbers(actual));
+    }
+
 }
