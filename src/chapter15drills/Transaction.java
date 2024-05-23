@@ -1,6 +1,12 @@
 package chapter15drills;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 
 public class Transaction {
@@ -8,6 +14,10 @@ public class Transaction {
     private String name;
     private BigDecimal amount;
     private Type type;
+
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate dateCreated;
 
 
     public String getId() {
@@ -40,5 +50,13 @@ public class Transaction {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }
